@@ -1,0 +1,260 @@
+---
+layout: ../layouts/Layout.astro
+title: "NeuralPrefix: A Zero-shot Sensory Data Imputation Plugin"
+description:
+favicon: favicon.svg
+thumbnail: screenshot.png
+---
+
+import Layout from "../layouts/Layout.astro";
+
+import Header from "../components/Header.astro";
+import Video from "../components/Video.astro";
+import HighlightedSection from "../components/HighlightedSection.astro";
+import SmallCaps from "../components/SmallCaps.astro";
+import Figure from "../components/Figure.astro";
+import Image from "../components/Image.astro";
+import TwoColumns from "../components/TwoColumns.astro";
+import YouTubeVideo from "../components/YouTubeVideo.astro";
+import LaTeX from "../components/LaTeX.astro";
+
+import outside from "../assets/outside.mp4";
+import nprefix_arch from "../assets/nprefix_arch_simple.png";
+import Splat from "../components/Splat.tsx"
+import nprefix_mot from "../assets/neuralprefix_mot.jpg"
+import clockwise from "../assets/clockwise.mp4"
+import clockwise2 from "../assets/clockwise_2.mp4"
+import clockwisedyn from "../assets/clockwise_dynamics.mp4"
+import dynamics from "../assets/dynamics.png"
+import simdynamics from "../assets/similar_dynamics.png"
+import soli from "../assets/soli_g.mp4"
+import pulldyb from "../assets/pull_dynamics_mcd.mp4"
+import solidyn from "../assets/soli_g_dynamics_up.mov"
+
+
+
+
+
+import counterclockwise from "../assets/counterclockwise.mp4"
+import push from "../assets/push.mp4"
+import pull from "../assets/pull.mp4"
+import slideleft from "../assets/slideleft.mp4"
+import slideright from "../assets/slideright.mp4"
+import SixColumns from "../components/SixColumns.astro";
+
+
+
+
+
+import CodeBlock from "../components/CodeBlock.astro";
+import Table from "../components/Table.astro";
+export const components = {pre: CodeBlock, table: Table}
+
+<Header
+  title={frontmatter.title}
+  authors={[
+    {
+      name: "Abdelwahed Khamis",
+      url: "https://abdelwahed.github.io",
+      institution: "Data61, CSIRO",
+      notes: ["*"],
+    },
+    {
+      name: "Sara Khalifa",
+      url: "https://www.qut.edu.au/about/our-people/academic-profiles/sara.khalifa",
+      institution: "Queensland University of Technology",
+    }
+  ]}
+  conference="The 23rd International Conference on Pervasive Computing and Communications (PerCom 2025)"
+  notes={[
+    {
+      symbol: "*",
+      text: "Corresponding author",
+    }
+  ]}
+  links={[
+    {
+      name: "Paper",
+      url: "",
+      icon: "ri:file-pdf-2-line",
+    },
+    {
+      name: " Code (coming soon)",
+      //url: "", 
+      icon: "ri:github-line",
+    },
+/*     
+    {
+      name: "arXiv",
+      url: "",
+      icon: "academicons:arxiv",
+    }, */
+/*     
+    {
+      name: "Bluesky",
+      url: "",
+      icon: "ri:bluesky-line"
+    }
+     */
+  ]}
+
+  />
+
+{/* <Video source={outside} /> */}
+
+<Figure
+    caption=""
+  >
+    <Image source={nprefix_mot} altText="NeuralPrefix Motivation" />
+</Figure>
+
+<HighlightedSection>
+
+{/* ## Abstract */}
+
+{/* This is a live demo for a template you can use to create a simple project page for your research paper. See the code for the template and instructions on how to use it yourself [here](https://github.com/RomanHauksson/academic-project-astro-template). It's made with the [Astro web framework](https://astro.build/) and styled with [Tailwind CSS](https://tailwindcss.com/). You write the content in [MDX](https://mdxjs.com/), which enables markdown formatting like **bold**, _italics_, and ~strikethrough~, as well as custom components like <SmallCaps>small caps.</SmallCaps> */}
+
+*Can we build a task-agnostic imputation pipeline that is transferable to new sensors without requiring additional training?* In this work, we formalize the concept of zero-shot imputation and propose a novel approach that enables the adaptation of pre-trained models to handle data intermittency. This framework, named NeuralPrefix, is a generative neural component **built as a continuous dynamical system**. It precedes a task model during inference, filling in gaps caused by data intermittency. 
+
+{/* NeuralPrefix is built as a continuous dynamical system, where its internal state can be estimated at any point in time by solving an Ordinary Differential Equation (ODE). This approach allows for a more versatile and adaptable imputation method, overcoming the limitations of task-specific and modality-specific solutions. We conduct a comprehensive evaluation of NeuralPrefix on multiple sensory datasets, demonstrating its effectiveness across various domains. When tested on intermittent data with a high 50% missing data rate, NeuralPreifx accurately recovers all the missing samples, achieving SSIM score between 0.93-0.96.  Zero-shot evaluations show that NeuralPrefix generalizes well to unseen datasets, even when the measurements come from a different modality.  */}
+</HighlightedSection>
+
+## Sensory Data Imputation Challenge
+
+Learning a generalizable spatiotemporal sensory data imputation model is challenging due to sensor heterogeneity, noise, and inherent sparsity. For example, a Wi-Fi-based motion tracking system captures only a few reflections per person, providing limited data for reconstruction. Unlike vision data, sensory data have lower resolution and lack spatial redundancy, making it harder to recover missing details. The **challenge intensifies when operating across domains**, as variations in sensor configurations, modalities, and data distributions further complicate imputation.
+{/* 
+
+<SixColumns>
+  <Figure slot="1" caption="Clockwise motion">
+    <Video source={clockwise} />
+  </Figure>
+  <Figure slot="2" caption="Counter Clockwise motion">
+    <Video source={counterclockwise} />
+  </Figure>
+  <Figure slot="3" caption="Push motion">
+    <Video source={push} />
+  </Figure>
+  <Figure slot="4" caption="Pull motion">
+    <Video source={pull} />
+  </Figure>
+  <Figure slot="5" caption="Slide Left motion">
+    <Video source={slideleft} />
+  </Figure>
+  <Figure slot="6" caption="Slide Right motion">
+    <Video source={slideright} />
+  </Figure>
+</SixColumns> */}
+
+<SixColumns>
+  <Figure slot="1" caption="Clockwise motion">
+    <Video source={clockwise} />
+  </Figure>
+  <Figure slot="2" caption="Counter Clockwise motion">
+    <Video source={counterclockwise} />
+  </Figure>
+  <Figure slot="3" caption="Slide Left motion">
+    <Video source={slideleft} />
+  </Figure>
+  
+</SixColumns>
+
+
+## Opportunity: smooth and common (latent) dynamics
+
+
+The raw signal of sensory data such as Radio Frequency (RF) signals or wearable sensors often appear noisy and highly variable. However, these **signals encode smooth underlying dynamics that correspond to human motion or activity**. This phenomenon is primarily due to the biomechanics of human movement and the inherent continuity of physical processes. 
+
+
+<TwoColumns>
+  <Figure slot="left" caption="Clockwise motion frames">
+    <Video source={clockwise2}  style={{ width: '150%', height: 'auto' }}/>
+  </Figure>
+  <Figure slot="right" caption="Peak energy motion">
+    <Video source={clockwisedyn} style={{ width: '150%', height: 'auto' }}/>
+  </Figure>
+ 
+</TwoColumns>
+
+Above is an illustration. The left pane shows the raw sensory data (RF signal) of hand clockwise rotation gesture. To the right we focus on the highest energy blob to elminate  less significant movements and highlights the main object’s motion. It can be seen that the motion follows a continuous curve, confirming that despite noise, the dominant movement pattern remains smooth.
+
+ 
+  <Figure caption="Peak energy trajectory of counterclockwise motion across RF frames. Each circle denotes " >
+      <Image source={dynamics} altText="Trajectory of peak energy of counterclockwise motion in RF frames. "/>
+  </Figure> 
+
+As human motion is governed by physical and biomechanical constraints, it is inherently consistent despite the apparent complexity and disparity in high-dimensional raw sensor data. We hypothesize that the **underlying latent dynamics** are **often invariant to sensor types and modalities**, making them valuable for generalization across different datasets and sensor configurations. In the example below, we show a push gesture captured by two different unpaired sensors. The visual resemblance hints at the common underlying dynamics.
+ {/* <Figure caption="Common dynamics exist in different datasets in the data space despite the modality disparity." >
+      <Image source={simdynamics} altText=""/>
+  </Figure>  */}
+
+  <TwoColumns>
+  <Figure slot="left" caption="Soli Dataset (push gesture)">
+    <Video source={solidyn}  style={{ width: '150%', height: 'auto' }}/>
+  </Figure>
+  <Figure slot="right" caption="MCD Dataset (push gesture)">
+    <Video source={pulldyb} style={{ width: '150%', height: 'auto' }}/>
+  </Figure>
+ 
+</TwoColumns>
+
+## NeuralPrefix
+
+<Figure
+    caption="NeuralPrefix Architecture (simplified view). Check the paper for full architectural details."
+  >
+    <Image source={nprefix_arch} altText="" />
+</Figure>
+
+{/* ## Two columns
+
+Use the two columns component to display two columns of content. In this example, the first column contains a figure with a YouTube video and the second column contains a figure with a custom [React](https://react.dev/) component. By default, they display side by side, but if the screen is narrow enough (for example, on mobile), they're arranged vertically.
+
+<TwoColumns>
+  <Figure slot="left" caption="Take a look at this YouTube video.">
+    <YouTubeVideo videoId="wjZofJX0v4M" />
+  </Figure>
+  <Figure slot="right" caption="Now look at this Gaussian Splat, rendered with a React component.">
+    <Splat client:idle />
+  </Figure>
+</TwoColumns>
+
+## Heading levels
+
+Use headings to divide your content into sections.
+
+### Heading 3
+
+Go down a level to heading 3...
+
+#### Heading 4
+
+...and down again to heading 4.
+
+## LaTeX
+
+You can also add LaTeX formulas, rendered during the build process using [KaTeX](https://katex.org/) so they're quick to load for visitors of your project page. You can write them inline, like this: <LaTeX inline formula="a^2 + b^2 = c^2" />. Or, you can write them as a block:
+
+<LaTeX formula="\int_a^b f(x) dx" />
+
+## Tables
+
+You can add simple tables using [GitHub Flavored Markdown syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables):
+
+| Model | Accuracy | F1 score | Training time (hours) |
+| :--- | :---: | :---: | :---: |
+| BERT-base | 0.89 | 0.87 | 4.5 |
+| RoBERTa-large | 0.92 | 0.91 | 7.2 |
+| DistilBERT | 0.86 | 0.84 | 2.1 |
+| XLNet | 0.90 | 0.89 | 6.8 | */}
+
+## BibTeX citation
+
+```bibtex
+@inproceedings{khamis2025nprefix,
+  author = "{Khamis, Abdelwahed and Khalifa, Sara}",
+  title = "NeuralPrefix: A Zero-shot Sensory Data Imputation Plugin",
+  year = "2025",
+  booktitle={2025 IEEE International Conference on Pervasive Computing and Communications (PerCom},
+  organization = "IEEE",
+}
+```
