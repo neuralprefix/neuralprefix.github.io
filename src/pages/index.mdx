@@ -19,7 +19,7 @@ import YouTubeVideo from "../components/YouTubeVideo.astro";
 import LaTeX from "../components/LaTeX.astro";
 
 import outside from "../assets/outside.mp4";
-import nprefix_arch from "../assets/nprefix_arch_simple.png";
+import nprefix_arch from "../assets/nprefix_arch_simple2.png";
 import Splat from "../components/Splat.tsx"
 import nprefix_mot from "../assets/neuralprefix_mot.jpg"
 import clockwise from "../assets/clockwise.mp4"
@@ -30,6 +30,8 @@ import simdynamics from "../assets/similar_dynamics.png"
 import soli from "../assets/soli_g.mp4"
 import pulldyb from "../assets/pull_dynamics_mcd.mp4"
 import solidyn from "../assets/soli_g_dynamics_up.mov"
+import print from "../assets/NeuralPrefix_percom25.pdf"
+import nprfix_pipeline from "../assets/nprefix_pipeline.png"
 
 
 
@@ -75,11 +77,11 @@ export const components = {pre: CodeBlock, table: Table}
   links={[
     {
       name: "Paper",
-      url: "",
+      url: print,
       icon: "ri:file-pdf-2-line",
     },
     {
-      name: " Code (coming soon)",
+      name: "(coming soon)",
       //url: "", 
       icon: "ri:github-line",
     },
@@ -102,11 +104,38 @@ export const components = {pre: CodeBlock, table: Table}
 
 {/* <Video source={outside} /> */}
 
-<Figure
+{/* <Figure
     caption=""
   >
     <Image source={nprefix_mot} altText="NeuralPrefix Motivation" />
-</Figure>
+</Figure> */}
+
+<style>
+{`
+  table tr:nth-child(2) {
+    background-color: rgba(255, 165, 0, 0.1); /* Light orange background */
+    border-top: 2px solid #ccc; /* Add line above second row */
+  }
+  
+  table tr:nth-child(3) {
+    background-color: rgba(255, 165, 0, 0.1); /* Light orange background */
+  }
+`}
+</style>
+
+{/* | Category                    | Task                                      | Seen (Training)      | Unseen (Test)|
+|-----------------------------|-------------------------------------------|-----------|-----|
+| Traditional Imputation      | Imputation on the same modality and configuration|<Figure caption=""> <Video source={counterclockwise} /></Figure> | <Figure caption=""> <Video source={counterclockwise} /></Figure> | 
+| NeuralPrefix *(domain-OOD)* | imputation on unseen sensor configuations and deployment|<Figure caption="Configuration A"> <Video source={slideright} /></Figure> | <Figure caption="Configuration B"> <Video source={counterclockwise}  /></Figure>| 
+| NeuralPrefix *(sensor-OOD)* | imputation on unseen sensor modality|<Figure caption="Sensor A"> <Video source={soli} /></Figure>  | <Figure caption="Sensor Modality B"> <Video source={counterclockwise} /></Figure> |  */}
+
+
+| Imputation Task                                              | Seen (Training)            | Unseen (Test)|
+|---------------------------------------------------|----------------------------|--------------|
+| traditional |<Figure caption="  "> <Video source={counterclockwise} /></Figure> | <Figure caption="  "> <Video source={counterclockwise} /></Figure> | 
+| cross domain   |<Figure caption="Conf. A"> <Video source={push} /></Figure> | <Figure caption="Conf. B"> <Video source={counterclockwise}  /></Figure>| 
+| cross sensor |<Figure caption="Sensor A"> <Video source={soli} /></Figure>  | <Figure caption="Sensor B"> <Video source={counterclockwise} /></Figure> | 
+
 
 <HighlightedSection>
 
@@ -117,6 +146,12 @@ export const components = {pre: CodeBlock, table: Table}
 *Can we build a task-agnostic imputation pipeline that is transferable to new sensors without requiring additional training?* In this work, we formalize the concept of zero-shot imputation and propose a novel approach that enables the adaptation of pre-trained models to handle data intermittency. This framework, named NeuralPrefix, is a generative neural component **built as a continuous dynamical system**. It precedes a task model during inference, filling in gaps caused by data intermittency. 
 
 {/* NeuralPrefix is built as a continuous dynamical system, where its internal state can be estimated at any point in time by solving an Ordinary Differential Equation (ODE). This approach allows for a more versatile and adaptable imputation method, overcoming the limitations of task-specific and modality-specific solutions. We conduct a comprehensive evaluation of NeuralPrefix on multiple sensory datasets, demonstrating its effectiveness across various domains. When tested on intermittent data with a high 50% missing data rate, NeuralPreifx accurately recovers all the missing samples, achieving SSIM score between 0.93-0.96.  Zero-shot evaluations show that NeuralPrefix generalizes well to unseen datasets, even when the measurements come from a different modality.  */}
+
+{/* <Figure
+    caption="A plugin that preceds task model and make them capbable of handling intermittency across domains"
+  >
+    <Image source={nprfix_pipeline} altText="" />
+</Figure> */}
 </HighlightedSection>
 
 ## Sensory Data Imputation Challenge
@@ -145,7 +180,7 @@ Learning a generalizable spatiotemporal sensory data imputation model is challen
   </Figure>
 </SixColumns> */}
 
-<SixColumns>
+{/* <SixColumns>
   <Figure slot="1" caption="Clockwise motion">
     <Video source={clockwise} />
   </Figure>
@@ -156,7 +191,7 @@ Learning a generalizable spatiotemporal sensory data imputation model is challen
     <Video source={slideleft} />
   </Figure>
   
-</SixColumns>
+</SixColumns> */}
 
 
 ## Opportunity: smooth and common (latent) dynamics
@@ -175,14 +210,14 @@ The raw signal of sensory data such as Radio Frequency (RF) signals or wearable 
  
 </TwoColumns>
 
-Above is an illustration. The left pane shows the raw sensory data (RF signal) of hand clockwise rotation gesture. To the right we focus on the highest energy blob to elminate  less significant movements and highlights the main object’s motion. It can be seen that the motion follows a continuous curve, confirming that despite noise, the dominant movement pattern remains smooth.
+Above is an illustration. The first pane shows the raw sensory data (RF signal) of hand gesture. In the second pane, we focus on the highest energy blob to elminate less significant movements and highlight the main object's motion. It can be seen that the motion follows a continuous curve, confirming that despite noise, the dominant movement pattern remains smooth.
 
  
-  <Figure caption="Peak energy trajectory of counterclockwise motion across RF frames. Each circle denotes " >
+  {/* <Figure caption="Peak energy trajectory of counterclockwise motion across RF frames. Each circle denotes " >
       <Image source={dynamics} altText="Trajectory of peak energy of counterclockwise motion in RF frames. "/>
-  </Figure> 
+  </Figure>  */}
 
-As human motion is governed by physical and biomechanical constraints, it is inherently consistent despite the apparent complexity and disparity in high-dimensional raw sensor data. We hypothesize that the **underlying latent dynamics** are **often invariant to sensor types and modalities**, making them valuable for generalization across different datasets and sensor configurations. In the example below, we show a push gesture captured by two different unpaired sensors. The visual resemblance hints at the common underlying dynamics.
+As human motion is governed by physical and biomechanical constraints, it is inherently consistent despite the apparent complexity and disparity in high-dimensional raw sensor data. We hypothesize that the **underlying latent dynamics** are **often invariant to sensor types and modalities**, making them valuable for generalization across different datasets and sensor configurations. In the example below, we show a push gesture captured by two different unpaired sensors. The visual resemblance of motions evolution hints at the common underlying dynamics.
  {/* <Figure caption="Common dynamics exist in different datasets in the data space despite the modality disparity." >
       <Image source={simdynamics} altText=""/>
   </Figure>  */}
@@ -198,6 +233,7 @@ As human motion is governed by physical and biomechanical constraints, it is inh
 </TwoColumns>
 
 ## NeuralPrefix
+
 
 <Figure
     caption="NeuralPrefix Architecture (simplified view). Check the paper for full architectural details."
