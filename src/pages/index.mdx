@@ -21,7 +21,7 @@ import LaTeX from "../components/LaTeX.astro";
 import outside from "../assets/outside.mp4";
 import nprefix_arch from "../assets/nprefix_arch_simple2.png";
 import Splat from "../components/Splat.tsx"
-import nprefix_mot from "../assets/neuralprefix_mot.jpg"
+import nprefix_mot from "../assets/neuralprefix_motivation.jpg"
 import clockwise from "../assets/clockwise.mp4"
 import clockwise2 from "../assets/clockwise_2.mp4"
 import clockwisedyn from "../assets/clockwise_dynamics.mp4"
@@ -104,11 +104,11 @@ export const components = {pre: CodeBlock, table: Table}
 
 {/* <Video source={outside} /> */}
 
-{/* <Figure
+ <Figure
     caption=""
   >
     <Image source={nprefix_mot} altText="NeuralPrefix Motivation" />
-</Figure> */}
+</Figure> 
 
 <style>
 {`
@@ -122,12 +122,6 @@ export const components = {pre: CodeBlock, table: Table}
   }
 `}
 </style>
-
-{/* | Category                    | Task                                      | Seen (Training)      | Unseen (Test)|
-|-----------------------------|-------------------------------------------|-----------|-----|
-| Traditional Imputation      | Imputation on the same modality and configuration|<Figure caption=""> <Video source={counterclockwise} /></Figure> | <Figure caption=""> <Video source={counterclockwise} /></Figure> | 
-| NeuralPrefix *(domain-OOD)* | imputation on unseen sensor configuations and deployment|<Figure caption="Configuration A"> <Video source={slideright} /></Figure> | <Figure caption="Configuration B"> <Video source={counterclockwise}  /></Figure>| 
-| NeuralPrefix *(sensor-OOD)* | imputation on unseen sensor modality|<Figure caption="Sensor A"> <Video source={soli} /></Figure>  | <Figure caption="Sensor Modality B"> <Video source={counterclockwise} /></Figure> |  */}
 
 
 | Imputation Task                                              | Seen (Training)            | Unseen (Test)|
@@ -232,7 +226,7 @@ As human motion is governed by physical and biomechanical constraints, it is inh
  
 </TwoColumns>
 
-## NeuralPrefix
+## NeuralPrefix Architecture
 
 
 <Figure
