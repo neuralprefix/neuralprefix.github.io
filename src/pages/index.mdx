@@ -32,6 +32,7 @@ import pulldyb from "../assets/pull_dynamics_mcd.mp4"
 import solidyn from "../assets/soli_g_dynamics_up.mov"
 import print from "../assets/NeuralPrefix_percom25.pdf"
 import nprfix_pipeline from "../assets/nprefix_pipeline.png"
+import qualitative from "../assets/evaluation.png"
 
 
 
@@ -43,6 +44,7 @@ import pull from "../assets/pull.mp4"
 import slideleft from "../assets/slideleft.mp4"
 import slideright from "../assets/slideright.mp4"
 import SixColumns from "../components/SixColumns.astro";
+
 
 
 
@@ -110,25 +112,14 @@ export const components = {pre: CodeBlock, table: Table}
     <Image source={nprefix_mot} altText="NeuralPrefix Motivation" />
 </Figure> 
 
-<style>
-{`
-  table tr:nth-child(2) {
-    background-color: rgba(255, 165, 0, 0.1); /* Light orange background */
-    border-top: 2px solid #ccc; /* Add line above second row */
-  }
-  
-  table tr:nth-child(3) {
-    background-color: rgba(255, 165, 0, 0.1); /* Light orange background */
-  }
-`}
-</style>
+
 
 
 | Imputation Task                                              | Seen (Training)            | Unseen (Test)|
 |---------------------------------------------------|----------------------------|--------------|
-| traditional |<Figure caption="  "> <Video source={counterclockwise} /></Figure> | <Figure caption="  "> <Video source={counterclockwise} /></Figure> | 
-| cross domain   |<Figure caption="Conf. A"> <Video source={push} /></Figure> | <Figure caption="Conf. B"> <Video source={counterclockwise}  /></Figure>| 
-| cross sensor |<Figure caption="Sensor A"> <Video source={soli} /></Figure>  | <Figure caption="Sensor B"> <Video source={counterclockwise} /></Figure> | 
+| Traditional |<Figure caption="  "> <Video source={counterclockwise} /></Figure> | <Figure caption="  "> <Video source={counterclockwise} /></Figure> | 
+| Cross Domain   |<Figure caption="Conf. A"> <Video source={push} /></Figure> | <Figure caption="Conf. B"> <Video source={counterclockwise}  /></Figure>| 
+| Cross Sensor |<Figure caption="Sensor A"> <Video source={soli} /></Figure>  | <Figure caption="Sensor B"> <Video source={counterclockwise} /></Figure> | 
 
 
 <HighlightedSection>
@@ -139,6 +130,8 @@ export const components = {pre: CodeBlock, table: Table}
 
 *Can we build a task-agnostic imputation pipeline that is transferable to new sensors without requiring additional training?* In this work, we formalize the concept of zero-shot imputation and propose a novel approach that enables the adaptation of pre-trained models to handle data intermittency. This framework, named NeuralPrefix, is a generative neural component **built as a continuous dynamical system**. It precedes a task model during inference, filling in gaps caused by data intermittency. 
 
+
+
 {/* NeuralPrefix is built as a continuous dynamical system, where its internal state can be estimated at any point in time by solving an Ordinary Differential Equation (ODE). This approach allows for a more versatile and adaptable imputation method, overcoming the limitations of task-specific and modality-specific solutions. We conduct a comprehensive evaluation of NeuralPrefix on multiple sensory datasets, demonstrating its effectiveness across various domains. When tested on intermittent data with a high 50% missing data rate, NeuralPreifx accurately recovers all the missing samples, achieving SSIM score between 0.93-0.96.  Zero-shot evaluations show that NeuralPrefix generalizes well to unseen datasets, even when the measurements come from a different modality.  */}
 
 {/* <Figure
@@ -148,9 +141,9 @@ export const components = {pre: CodeBlock, table: Table}
 </Figure> */}
 </HighlightedSection>
 
-## Sensory Data Imputation Challenge
+{/* ### Sensory Data Imputation Challenge */}
 
-Learning a generalizable spatiotemporal sensory data imputation model is challenging due to sensor heterogeneity, noise, and inherent sparsity. For example, a Wi-Fi-based motion tracking system captures only a few reflections per person, providing limited data for reconstruction. Unlike vision data, sensory data have lower resolution and lack spatial redundancy, making it harder to recover missing details. The **challenge intensifies when operating across domains**, as variations in sensor configurations, modalities, and data distributions further complicate imputation.
+{/* Learning a generalizable spatiotemporal sensory data imputation model is challenging due to sensor heterogeneity, noise, and inherent sparsity. For example, a Wi-Fi-based motion tracking system captures only a few reflections per person, providing limited data for reconstruction. Unlike vision data, sensory data have lower resolution and lack spatial redundancy, making it harder to recover missing details. The **challenge intensifies when operating across domains**, as variations in sensor configurations, modalities, and data distributions further complicate imputation. */}
 {/* 
 
 <SixColumns>
@@ -188,10 +181,12 @@ Learning a generalizable spatiotemporal sensory data imputation model is challen
 </SixColumns> */}
 
 
-## Opportunity: smooth and common (latent) dynamics
+## Smooth and common (latent) dynamics
+
+***Challenges.*** Learning a generalizable spatiotemporal sensory data imputation model is challenging due to sensor heterogeneity and noise. Additionally there is an inherent sparsity in the raw data. For example,  a Wi-Fi-based motion tracking system captures only a few reflections per person, providing limited data for reconstruction. Unlike vision data, sensory data have lower resolution and lack spatial redundancy, making it harder to recover missing details. The **challenge intensifies when operating across domains**, as variations in sensor configurations, modalities, and data distributions further complicate imputation.
 
 
-The raw signal of sensory data such as Radio Frequency (RF) signals or wearable sensors often appear noisy and highly variable. However, these **signals encode smooth underlying dynamics that correspond to human motion or activity**. This phenomenon is primarily due to the biomechanics of human movement and the inherent continuity of physical processes. 
+***Opportunities.*** The raw signal of sensory data such as Radio Frequency (RF) signals or wearable sensors often appear noisy and highly variable. However, these **signals encode smooth underlying dynamics that correspond to human motion or activity**. This phenomenon is primarily due to the biomechanics of human movement and the inherent continuity of physical processes. 
 
 
 <TwoColumns>
@@ -204,12 +199,12 @@ The raw signal of sensory data such as Radio Frequency (RF) signals or wearable 
  
 </TwoColumns>
 
-Above is an illustration. The first pane shows the raw sensory data (RF signal) of hand gesture. In the second pane, we focus on the highest energy blob to elminate less significant movements and highlight the main object's motion. It can be seen that the motion follows a continuous curve, confirming that despite noise, the dominant movement pattern remains smooth.
+Above is an illustration. The motion frames shows the raw sensory data (RF signal) of hand gesture. In the second pane, we focus on the highest energy blob to elminate less significant movements and highlight the main object's motion. It can be seen that the motion follows a continuous trajectory, confirming that despite noise, the dominant movement pattern remains smooth.
 
  
-  {/* <Figure caption="Peak energy trajectory of counterclockwise motion across RF frames. Each circle denotes " >
+   <Figure caption="Peak energy trajectory of counterclockwise motion across RF frames. Each circle denotes " >
       <Image source={dynamics} altText="Trajectory of peak energy of counterclockwise motion in RF frames. "/>
-  </Figure>  */}
+  </Figure>  
 
 As human motion is governed by physical and biomechanical constraints, it is inherently consistent despite the apparent complexity and disparity in high-dimensional raw sensor data. We hypothesize that the **underlying latent dynamics** are **often invariant to sensor types and modalities**, making them valuable for generalization across different datasets and sensor configurations. In the example below, we show a push gesture captured by two different unpaired sensors. The visual resemblance of motions evolution hints at the common underlying dynamics.
  {/* <Figure caption="Common dynamics exist in different datasets in the data space despite the modality disparity." >
@@ -276,6 +271,29 @@ You can add simple tables using [GitHub Flavored Markdown syntax](https://docs.g
 | RoBERTa-large | 0.92 | 0.91 | 7.2 |
 | DistilBERT | 0.86 | 0.84 | 2.1 |
 | XLNet | 0.90 | 0.89 | 6.8 | */}
+
+## Performance
+
+
+ <Figure
+    caption="Qualitative Evaluation"
+  >
+    <Image source={qualitative} altText="Qualitative Evaluation" />
+</Figure> 
+
+
+
+
+| Datasets | Model         | SSIM↑ | MSE↓ | 
+|----------|--------------|--------|------|
+| **MCD**  | Mean         | 0.7534 | 0.0017 | 
+|          | Expectation Maximization | 0.6582 | 0.0035 |
+|          | Optical Flow | 0.7831 | 0.0018 | 
+|          | Generative SOTA         | 0.8726 | 0.0015 | 
+|          | NeuralPrefix | **0.9399** | **0.0007** |
+
+
+
 
 ## BibTeX citation
 
